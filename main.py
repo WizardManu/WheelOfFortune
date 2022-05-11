@@ -21,18 +21,23 @@ class Grid:
   
   def blank(self,index):
     self.get(index).color('gray')
-    self.get(index).var.set(" ")
+    self.change_val(index, ' ')
 
+  def empty(self,index):
+    self.change_val(index,'_')
+    self.get(index).color('light gray')
+
+  
   def change_val(self,index,val):
     self.get(index).var.set(val)
 
   def load(self,puzzle):
     for row in range(0,len(puzzle)):
       for letter in range(0,len(puzzle[row])):
-        if puzzle[row][letter] == '':
+        if puzzle[row][letter] == ' ':
           self.blank((row,letter))
         else:
-          self.change_val((row,letter),'_')
+          self.empty((row,letter))
   def pzadd(self,puzzle):
     self.currentpuzzle = puzzle
     self.currentpuz_row_gen = range(0,len(puzzle))
@@ -94,8 +99,6 @@ for puzzle in puzzles:
     else:
       warn("invalid answer")
   bottom_text_num += 1
-    
-
 
 
 a.mainloop()
