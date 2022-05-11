@@ -1,5 +1,6 @@
 import tkinter as tk
 import puzzles as pz
+from warnings import warn
 class Card:
   def __init__(self,root):
     self.var = tk.StringVar()
@@ -45,14 +46,17 @@ class Grid:
     self.change_val(index,self.pzget(index))
 
   def reveal_ltr(self, letter):
+    revealn = 0
     for rown in self.currentpuz_row_gen:
       for coln in self.currentpuz_cols_gen:
         if self.pzget((rown,coln)) == letter:
           self.reveal((rown,coln))
+          revealn += 1
+    print(revealn)
 
 a = tk.Tk()  
 a.geometry("400x400")  
-a.title("test")  
+a.title("Wheel of Fortune")  
 
 
 num = 0
@@ -67,22 +71,29 @@ for row in grid.cards:
     num += 1
   rown += 1
 
-bottom = tk.Label(a, text = 'placeholder', bg = "cyan", bd = 5, justify = "center", padx = 225, pady = 6)
+bottom_text = tk.StringVar()
+
+bottom = tk.Label(a, textvar = bottom_text, bg = "cyan", bd = 5, justify = "center", padx = 225, pady = 6)
 
 bottom.grid(row = 6, columnspan = 15)
 
 puzzles = pz.puzzles().puzs
+clues = pz.puzzles().clues
 
-grid.pzadd(puzzles[0])
 
+bottom_text_num = 0
 for puzzle in puzzles:
   grid.pzadd(puzzle)
-  answer = input("command?")
-  if answer.isalpha():
-    grid.reveal_ltr(answer)
-  elif answer == 'solved':
-    continue
-
+  bottom_text.set(clues[bottom_text_num])
+  while True:
+    answer = input("command?")
+    if answer.isalpha() and len(answer) == 1:
+      grid.reveal_ltr(answer)
+    elif answer == 'solved':
+      break
+    else:
+      warn("invalid answer")
+  bottom_text_num += 1
     
 
 
