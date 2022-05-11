@@ -34,7 +34,21 @@ class Grid:
           self.change_val((row,letter),'_')
   def pzadd(self,puzzle):
     self.currentpuzzle = puzzle
+    self.currentpuz_row_gen = range(0,len(puzzle))
+    self.currentpuz_cols_gen = range(0,len(puzzle[0]))
     self.load(puzzle)
+
+  def pzget(self,index):
+    return self.currentpuzzle[index[0]][index[1]]
+  
+  def reveal(self, index):
+    self.change_val(index,self.pzget(index))
+
+  def reveal_ltr(self, letter):
+    for rown in self.currentpuz_row_gen:
+      for coln in self.currentpuz_cols_gen:
+        if self.pzget((rown,coln)) == letter:
+          self.reveal((rown,coln))
 
 a = tk.Tk()  
 a.geometry("400x400")  
@@ -59,7 +73,18 @@ bottom.grid(row = 6, columnspan = 15)
 
 puzzles = pz.puzzles().puzs
 
-
 grid.pzadd(puzzles[0])
+
+for puzzle in puzzles:
+  grid.pzadd(puzzle)
+  answer = input("command?")
+  if answer.isalpha():
+    grid.reveal_ltr(answer)
+  elif answer == 'solved':
+    continue
+
+    
+
+
 
 a.mainloop()
