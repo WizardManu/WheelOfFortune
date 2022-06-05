@@ -1,11 +1,12 @@
 import tkinter as tk
 from warnings import warn
 from textwrap import fill
+from time import sleep
 
 class Card:
   def __init__(self,root):
     self.var = tk.StringVar()
-    self.lbl = tk.Label(root, textvariable = self.var, bg = "light grey", bd = 1, justify = "right", padx = 7, pady = 7)
+    self.lbl = tk.Label(root, textvariable = self.var, bg = "light grey", bd = 1, justify = "right", padx = 7, pady = 7, font = font)
   def color(self,colour):
     self.lbl.config(bg = colour)
 
@@ -61,7 +62,11 @@ class Grid:
         if self.pzget((rown,coln)) == letter:
           self.reveal((rown,coln))
           revealn += 1
-    print(revealn)
+    return revealn
+
+  def reveal_board(self):
+    for letter in ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']:
+      self.reveal_ltr(letter)
 
 def puzzlify(puzzlestr):
   quote = puzzlestr
@@ -96,11 +101,16 @@ def puzzlify(puzzlestr):
   
   return final
 
+def value_change(scorel, str_index, str_val):
+  scorel[int(str_index)].set(scorel[int(str_index)].get() + int(str_val))
+  
+
 a = tk.Tk()  
 a.geometry("500x500")  
-a.title("Wheel of Fortune")  
-tk.Text(a, height = 100)
-
+a.title("Wheel of Fortune")
+font = ('Helvetica', 32)
+font1 = ('Helvetica', 20)
+font2 = ('Helvetica', 20)
 num = 0
 # rown = 0
 grid = Grid(a)
@@ -115,14 +125,41 @@ for row_idx, row in enumerate(grid.cards):
 
 bottom_text = tk.StringVar()
 
-bottom = tk.Label(a, textvar = bottom_text, bg = "cyan", bd = 5, justify = "center", padx = 225, pady = 6)
+bottom = tk.Label(a, textvar = bottom_text, bg = "cyan", bd = 5, justify = "center", padx = 225, pady = 6,font = font2)
 
 guessed_letters = tk.StringVar()
 
-guessed = tk.Label(a, textvar = guessed_letters, bg = "cyan", bd = 5, justify = "center", padx = 225, pady = 6)
+guessed = tk.Label(a, textvar = guessed_letters, bg = "cyan", bd = 5, justify = "center", padx = 100, pady = 6,font = font2)
 
-bottom.grid(row = 6, columnspan = 15)
-guessed.grid(row = 7, columnspan = 15)
+bottom.grid(row = 5, columnspan = 15, sticky= 'nsew')
+guessed.grid(row = 6, columnspan = 15,  sticky= 'nsew',)
+
+score_head_1 = tk.Label(a, text = 'Team 1:', bg = "light grey", bd = 5, justify = "center", padx = 6, pady = 6,font = font1)
+
+score_head_2 = tk.Label(a, text = 'Team 2:', bg = "light grey", bd = 5, justify = "center", padx = 6, pady = 6,font = font1)
+
+score_head_3 = tk.Label(a, text = 'Team 3:', bg = "light grey", bd = 5, justify = "center", padx = 6, pady = 6,font = font1)
+
+score_top = tk.Label(a, text = "Scores", bg = "light grey", bd = 5, justify = "center", padx = 10, pady = 6,font = font1)
+
+score_top.grid(row = 0, column = 16, sticky= 'nsew')
+score_head_1.grid(row = 1, column = 16,  sticky= 'nsew')
+score_head_2.grid(row = 3, column = 16,  sticky= 'nsew')
+score_head_3.grid(row = 5, column = 16,  sticky= 'nsew')
+
+score = [0,tk.IntVar(),tk.IntVar(),tk.IntVar()]
+
+for val in score[1:]:
+  val.set(0)
+
+score_1 = tk.Label(a, textvar = score[1], bg = "light grey", bd = 5, justify = "center", padx = 6, pady = 6,font = font1)
+score_2 = tk.Label(a, textvar = score[2], bg = "light grey", bd = 5, justify = "center", padx = 6, pady = 6,font = font1)
+score_3 = tk.Label(a, textvar = score[3], bg = "light grey", bd = 5, justify = "center", padx = 6, pady = 6,font = font1)
+
+score_1.grid(row = 2, column = 16,  sticky= 'nsew')
+score_2.grid(row = 4, column = 16,  sticky= 'nsew')
+score_3.grid(row = 6, column = 16,  sticky= 'nsew')
+
 
 puzzles = []
 clues = []
@@ -142,12 +179,14 @@ bottom_text_num = 0
 while True:
   answer = input("command?")
   if answer.isalpha() and len(answer) == 1:
-    grid.reveal_ltr(answer)
-    guessed_letters.set(guessed_letters.get() + ', ' + answer)
-  elif answer == 'solved':
+    print(grid.reveal_ltr(answer))
+    guessed_letters.set(guessed_letters.get() + ' ' + answer)
+  elif answer == 'next':
     grid.pzfyadd(puzzles.pop(0))
     bottom_text.set(clues.pop(0))
     guessed_letters.set('Guessed Letters: ')
+  elif answer == 'reveal':
+    grid.reveal_board()
   elif answer.startswith("pzuse "):
     grid.pzfyadd(answer[6:])
   elif answer.startswith("cluse "):
@@ -158,6 +197,8 @@ while True:
   elif answer.startswith("cladd "):
     clues.append(answer[6:])
     print(clues)
+  elif answer.startswith('scoreadd '):
+    value_change(score,answer[9],answer[10:])
   else:
     warn("invalid answer")
 bottom_text_num += 1
