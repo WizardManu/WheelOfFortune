@@ -197,7 +197,7 @@ while True:
   elif answer.startswith("cladd "):
     clues.append(answer[6:])
     print(clues)
-  elif answer.startswith('scoreadd '):
+  elif answer.startswith('score '):
     value_change(score,answer[9],answer[10:])
   else:
     warn("invalid answer")
