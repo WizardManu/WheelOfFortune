@@ -198,7 +198,7 @@ while True:
     clues.append(answer[6:])
     print(clues)
   elif answer.startswith('score '):
-    value_change(score,answer[9],answer[10:])
+    value_change(score,answer[6],answer[7:])
   else:
     warn("invalid answer")
 bottom_text_num += 1
