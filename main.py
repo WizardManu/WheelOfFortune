@@ -6,7 +6,7 @@ from time import sleep
 class Card:
   def __init__(self,root):
     self.var = tk.StringVar()
-    self.lbl = tk.Label(root, textvariable = self.var, bg = "light grey", bd = 1, justify = "right", padx = 7, pady = 7, font = font)
+    self.lbl = tk.Label(root, textvariable = self.var, bg = "light grey", bd = 1, justify = "right", padx = 14, pady = 14, font = font)
   def color(self,colour):
     self.lbl.config(bg = colour)
 
