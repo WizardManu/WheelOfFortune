@@ -6,7 +6,7 @@ from time import sleep
 class Card:
   def __init__(self,root):
     self.var = tk.StringVar()
-    self.lbl = tk.Label(root, textvariable = self.var, bg = "light grey", bd = 1, justify = "right", padx = 14, pady = 14, font = font)
+    self.lbl = tk.Label(root, textvariable = self.var, bg = "light grey", bd = 1, justify = "right", padx = 25, pady = 25, font = font)
   def color(self,colour):
     self.lbl.config(bg = colour)
 
@@ -178,7 +178,7 @@ bottom_text_num = 0
 
 while True:
   answer = input("command?")
-  if answer.isalpha() and len(answer) == 1:
+  if answer.isalpha() and len(answer) == 1 and answer.isupper():
     print(grid.reveal_ltr(answer))
     guessed_letters.set(guessed_letters.get() + ' ' + answer)
   elif answer == 'next':
