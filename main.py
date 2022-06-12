@@ -109,7 +109,7 @@ a = tk.Tk()
 a.geometry("500x500")  
 a.title("Wheel of Fortune")
 font = ('Helvetica', 32)
-font1 = ('Helvetica', 20)
+font1 = ('Helvetica', 12)
 font2 = ('Helvetica', 20)
 num = 0
 # rown = 0
@@ -134,11 +134,11 @@ guessed = tk.Label(a, textvar = guessed_letters, bg = "cyan", bd = 5, justify = 
 bottom.grid(row = 5, columnspan = 15, sticky= 'nsew')
 guessed.grid(row = 6, columnspan = 15,  sticky= 'nsew',)
 
-score_head_1 = tk.Label(a, text = 'Team 1:', bg = "light grey", bd = 5, justify = "center", padx = 6, pady = 6,font = font1)
+score_head_1 = tk.Label(a, text = 'Dharmic Dolphins', bg = "light grey", bd = 5, justify = "center", padx = 6, pady = 6,font = font1)
 
-score_head_2 = tk.Label(a, text = 'Team 2:', bg = "light grey", bd = 5, justify = "center", padx = 6, pady = 6,font = font1)
+score_head_2 = tk.Label(a, text = 'Rajasic Rhinos', bg = "light grey", bd = 5, justify = "center", padx = 6, pady = 6,font = font1)
 
-score_head_3 = tk.Label(a, text = 'Team 3:', bg = "light grey", bd = 5, justify = "center", padx = 6, pady = 6,font = font1)
+score_head_3 = tk.Label(a, text = 'Karmic Koalas', bg = "light grey", bd = 5, justify = "center", padx = 6, pady = 6,font = font1)
 
 score_top = tk.Label(a, text = "Scores", bg = "light grey", bd = 5, justify = "center", padx = 10, pady = 6,font = font1)
 
