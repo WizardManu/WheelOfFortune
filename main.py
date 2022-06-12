@@ -109,7 +109,7 @@ a = tk.Tk()
 a.geometry("500x500")  
 a.title("Wheel of Fortune")
 font = ('Helvetica', 32)
-font1 = ('Helvetica', 12)
+font1 = ('Helvetica', 14)
 font2 = ('Helvetica', 20)
 num = 0
 # rown = 0
@@ -152,9 +152,9 @@ score = [0,tk.IntVar(),tk.IntVar(),tk.IntVar()]
 for val in score[1:]:
   val.set(0)
 
-score_1 = tk.Label(a, textvar = score[1], bg = "light grey", bd = 5, justify = "center", padx = 6, pady = 6,font = font1)
-score_2 = tk.Label(a, textvar = score[2], bg = "light grey", bd = 5, justify = "center", padx = 6, pady = 6,font = font1)
-score_3 = tk.Label(a, textvar = score[3], bg = "light grey", bd = 5, justify = "center", padx = 6, pady = 6,font = font1)
+score_1 = tk.Label(a, textvar = score[1], bg = "light grey", bd = 5, justify = "center", padx = 6, pady = 6,font = font2)
+score_2 = tk.Label(a, textvar = score[2], bg = "light grey", bd = 5, justify = "center", padx = 6, pady = 6,font = font2)
+score_3 = tk.Label(a, textvar = score[3], bg = "light grey", bd = 5, justify = "center", padx = 6, pady = 6,font = font2)
 
 score_1.grid(row = 2, column = 16,  sticky= 'nsew')
 score_2.grid(row = 4, column = 16,  sticky= 'nsew')
